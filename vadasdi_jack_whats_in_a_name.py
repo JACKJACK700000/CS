@@ -14,6 +14,11 @@
 # *      Names have to be separated by single spaces.                 *
 # *                                                                   *
 # *********************************************************************
+# *  Log:                                                             *
+# *      V1: First submitted version, no line doc                     *
+# *      V1.1: Line Documentation added                               *
+# *                                                                   *
+# *********************************************************************
 
 import random
 
@@ -24,10 +29,10 @@ def to_chars(text):
     Parameters:  text (str) - the text the user typed
     Returns:     list of single-character strings
     """
-    chars = []
-    for c in text:
-        chars.append(c)
-    return chars
+    chars = []              #empty list for characters
+    for c in text:          #for loop for number of characters in the inputted text
+        chars.append(c)     #add each letter c to list chars
+    return chars            #return list chars
 
 
 def to_text(chars):
@@ -37,10 +42,10 @@ def to_text(chars):
     Parameters:  chars (list) - array of characters
     Returns:     str - the characters joined together
     """
-    text = ""
-    for c in chars:
-        text = text + c
-    return text
+    text = ""           #define empty string
+    for c in chars:     #loop for number of characters in chars list
+        text = text + c #text string is text and add the next letter in the list at the end
+    return text         #return the reconstructed text
 
 
 def is_letter(c):
@@ -49,7 +54,7 @@ def is_letter(c):
     Parameters:  c (str) - one character
     Returns:     bool - True if c is a letter
     """
-    return (c >= "a" and c <= "z") or (c >= "A" and c <= "Z")
+    return (c >= "a" and c <= "z") or (c >= "A" and c <= "Z") #check if the character is in the range of lower or uppercase letters
 
 
 def is_vowel(c):
@@ -58,7 +63,7 @@ def is_vowel(c):
     Parameters:  c (str) - one character
     Returns:     bool - True if c is a, e, i, o, or u
     """
-    return c in "aeiouAEIOU"
+    return c in "aeiouAEIOU" #check if c character is a upper or lowercase vowel 
 
 
 def to_lower(chars):
@@ -68,15 +73,12 @@ def to_lower(chars):
     Parameters:  chars (list) - array of characters
     Returns:     list - lowercase copy of the array
     """
-    result = []
-    for c in chars:
-        if c >= "A" and c <= "Z":
-            # In ASCII, a lowercase letter's code is 32 higher than the
-            # matching uppercase letter ('A' = 65, 'a' = 97)
-            result.append(chr(ord(c) + 32))
-        else:
-            result.append(c)
-    return result
+    result = []                                 #create empty list for result
+    for c in chars:                             #for c in the list of characters
+        if c >= "A" and c <= "Z":               #check if c is an uppercase letter
+            result.append(chr(ord(c) + 32))     #add 32 to code of Uppercase letter to make the letter lowercase
+            result.append(c)                    #value of c is already lowercase or is not a letter so there is nothing to change
+    return result                               #return result list
 
 
 def to_upper(chars):
@@ -86,14 +88,13 @@ def to_upper(chars):
     Parameters:  chars (list) - array of characters
     Returns:     list - uppercase copy of the array
     """
-    result = []
-    for c in chars:
-        if c >= "a" and c <= "z":
-            # Subtract 32 to move from the lowercase code to the uppercase code
-            result.append(chr(ord(c) - 32))
+    result = []                             #empty results list
+    for c in chars:                         #for c in list of characters
+        if c >= "a" and c <= "z":           #check if letter is lowercase
+            result.append(chr(ord(c) - 32)) #subtract 32 from lowercase code to make letter uppercase
         else:
-            result.append(c)
-    return result
+            result.append(c)                #if letter is already uppercase, add directly to list without changing it
+    return result                           #return result list
 
 
 def reverse_and_display(chars):
@@ -103,13 +104,12 @@ def reverse_and_display(chars):
     Parameters:  chars (list) - array of characters
     Returns:     nothing (prints the result)
     """
-    reversed_text = ""
-    i = len(chars) - 1
-    # Walk from the last index down to index 0
-    while i >= 0:
-        reversed_text = reversed_text + chars[i]
-        i = i - 1
-    print(reversed_text)
+    reversed_text = ""                              #reversed text empty string
+    i = len(chars) - 1                              #start with last index of list 
+    while i >= 0:                                   #while i is inside of the length of chars list
+        reversed_text = reversed_text + chars[i]    #reversed_text is what is already inside and the new letter
+        i = i - 1                                   #subtract 1 from i to cycle through next character                                   
+    return reversed_text                            #return the new string
 
 
 def count_vowels(chars):
@@ -118,11 +118,11 @@ def count_vowels(chars):
     Parameters:  chars (list) - array of characters
     Returns:     int - total number of vowels
     """
-    count = 0
-    for c in chars:
-        if is_vowel(c):
-            count = count + 1
-    return count
+    count = 0                                       #count is 0
+    for c in chars:                                 #for c in characters list
+        if is_vowel(c):                             #check if c is a vowel
+            count = count + 1                       #if c is a vowel, add 1 to vowel count
+    return count                                    #return final vowel count
 
 
 def count_one_vowel(chars, vowel):
@@ -135,10 +135,10 @@ def count_one_vowel(chars, vowel):
     """
     count = 0
     target = to_lower([vowel])[0]       # make the vowel lowercase
-    for c in to_lower(chars):           # compare against a lowercase copy
-        if c == target:
-            count = count + 1
-    return count
+    for c in to_lower(chars):           # compare against the lowercase copy of chars
+        if c == target:                 #if c is equal to the target vowel
+            count = count + 1           #count of that vowel increases by 1
+    return count                        #return vowel count
 
 
 def vowel_subtotals(chars):
@@ -147,11 +147,11 @@ def vowel_subtotals(chars):
     Parameters:  chars (list) - array of characters
     Returns:     list of 5 ints - counts for a, e, i, o, u (in that order)
     """
-    vowels = "aeiou"
-    counts = [0, 0, 0, 0, 0]
-    for i in range(5):
-        counts[i] = count_one_vowel(chars, vowels[i])
-    return counts
+    vowels = "aeiou"                                    #define vowels
+    counts = [0, 0, 0, 0, 0]                            #define vowel counts
+    for i in range(5):                                  #for i in range of 5 different vowels
+        counts[i] = count_one_vowel(chars, vowels[i])   #check if each vowels[i] appears
+    return counts                                       #return vowel count
 
 
 def count_consonants(chars):
@@ -160,11 +160,11 @@ def count_consonants(chars):
     Parameters:  chars (list) - array of characters
     Returns:     int - total number of consonants
     """
-    count = 0
-    for c in chars:
-        if is_letter(c) and not is_vowel(c):
-            count = count + 1
-    return count
+    count = 0                                   #define count
+    for c in chars:                             #for c in list chars
+        if is_letter(c) and not is_vowel(c):    #if c is a letter and is not a vowel
+            count = count + 1                   #add one to count
+    return count                                #return count
 
 
 def consonant_subtotals(chars):
@@ -175,10 +175,9 @@ def consonant_subtotals(chars):
                  Vowel positions stay 0.
     """
     counts = [0] * 26
-    for c in to_lower(chars):
-        if is_letter(c) and not is_vowel(c):
-            # ord(c) - ord('a') turns a letter into a position 0-25
-            counts[ord(c) - ord("a")] += 1
+    for c in to_lower(chars):                      #for c in lowecase converted chars list
+        if is_letter(c) and not is_vowel(c):       #if 
+            counts[ord(c) - ord("a")] += 1         # ord(c) - ord('a') turns a letter into a position 0-25
     return counts
 
 
@@ -188,12 +187,12 @@ def first_name(chars):
     Parameters:  chars (list) - array of characters holding the full name
     Returns:     list - characters of the first name
     """
-    first = []
-    for c in chars:
-        if c == " ":
-            break               # stop at the first space
-        first.append(c)
-    return first
+    first = []                  #list for first name
+    for c in chars:             #for c in chars list
+        if c == " ":            #if c is a space
+            break               #break loop
+        first.append(c)         #if c isnt a space add letter to list
+    return first                #return first name
 
 
 def last_name(chars):
@@ -203,16 +202,14 @@ def last_name(chars):
     Returns:     list - characters of the last name, or an empty list if
                  the name is only one word
     """
-    if " " not in chars:
-        return []
-    last = []
-    i = len(chars) - 1
-    # Work backwards from the end until a space is reached,
-    # inserting at position 0 so the letters stay in the right order
-    while i >= 0 and chars[i] != " ":
-        last.insert(0, chars[i])
-        i = i - 1
-    return last
+    if " " not in chars:                #if there are no spaces
+        return []                       #return empty list
+    last = []                           #define last name list
+    i = len(chars) - 1                  #work from back to fron until a space is reached
+    while i >= 0 and chars[i] != " ":   
+        last.insert(0, chars[i])        #insert at place 0 to make sure letters stay in order    
+        i = i - 1                       #i is i minus one
+    return last                         #return the last name list
 
 
 def middle_names(chars):
@@ -225,19 +222,17 @@ def middle_names(chars):
     """
     first_space = -1
     last_space = -1
-    # Find the index of the first and last space
-    for i in range(len(chars)):
+    for i in range(len(chars)):         
         if chars[i] == " ":
             if first_space == -1:
                 first_space = i
             last_space = i
-    # Same index (or none found) means there is no middle name
-    if first_space == last_space:
-        return []
-    middle = []
+    if first_space == last_space:   #if there is only one space
+        return []                   #return empty list
+    middle = []                     #define middle name list
     for i in range(first_space + 1, last_space):
-        middle.append(chars[i])
-    return middle
+        middle.append(chars[i]) #add letters between the first and last spaces to middle name
+    return middle               #return middle name list
 
 
 def last_has_hyphen(chars):
@@ -246,10 +241,10 @@ def last_has_hyphen(chars):
     Parameters:  chars (list) - array of characters holding the full name
     Returns:     bool - True if the last name has a '-'
     """
-    for c in last_name(chars):
-        if c == "-":
-            return True
-    return False
+    for c in last_name(chars):  #for c is in the last name characters list
+        if c == "-":            #if c is a hyphen
+            return True         #return that last name has a hyphen
+    return False                #if there are no hyphens return false
 
 
 def scramble(chars):
@@ -259,15 +254,11 @@ def scramble(chars):
     Parameters:  chars (list) - array of characters (changed in place)
     Returns:     nothing
     """
-    for i in range(len(chars)):
-        # Pick a random position and swap it with the current one
-        j = random.randint(0, len(chars) - 1)
-        temp = chars[i]
+    for i in range(len(chars)): #for loop in the range of the length of chars list
+        j = random.randint(0, len(chars) - 1) #j is the random index between 0 and the second to last spot
+        temp = chars[i]                       #these three lines swap char[i] and char[j]
         chars[i] = chars[j]
         chars[j] = temp
-
-
-# 11. Palindrome
 
 def first_is_palindrome(chars):
     """
@@ -276,15 +267,12 @@ def first_is_palindrome(chars):
     Parameters:  chars (list) - array of characters holding the full name
     Returns:     bool - True if the first name is a palindrome
     """
-    first = to_lower(first_name(chars))
-    # Only compare the first half to the mirrored second half
-    for i in range(len(first) // 2):
-        if first[i] != first[len(first) - 1 - i]:
-            return False
-    return True
-
-
-# 12. Sorted characters (Bonus)
+    first = to_lower(first_name(chars))             #first is lowecase converted first name from chars list
+    for i in range(int(len(first) / 2)):                #i in range of the length of first name divided by two
+        #using / resulted in a 'float error' so i stuck with //, updated to turn the whole division result into an integer, that worked
+        if first[i] != first[len(first) - 1 - i]:   #if first[i] does not equal the spot at the opposite end of the word
+            return False                            #word is not a palindrome
+    return True                                     #if the above statement is not true, then the word is a palindrome
 
 def sorted_chars(chars):
     """
@@ -294,13 +282,11 @@ def sorted_chars(chars):
     Parameters:  chars (list) - array of characters holding the full name
     Returns:     list - sorted characters
     """
-    letters = []
-    for c in to_lower(chars):
-        if c != " ":
-            letters.append(c)
-    # Bubble sort: each pass pushes the largest remaining character to
-    # the end, so the range of positions checked shrinks each pass
-    for i in range(len(letters)):
+    letters = []                    #letters is empty list of letters
+    for c in to_lower(chars):       #for c in forced lower chars
+        if c != " ":                #if c does not equal a space
+            letters.append(c)       #add c to letters list
+    for i in range(len(letters)):   # Bubble sort: each pass pushes the largest remaining character to the end, so the range of positions checked shrinks each pass
         for j in range(len(letters) - 1 - i):
             if letters[j] > letters[j + 1]:
                 temp = letters[j]
@@ -308,27 +294,23 @@ def sorted_chars(chars):
                 letters[j + 1] = temp
     return letters
 
-
-# 14. Initials
-
-
 def initials(chars):
     """
     Description: Makes initials from the name, e.g. "mary jane watson"
-                 becomes "M.J.W."
+                 becomes "M.J.W." I know this is spiderman's girlfriend
     Parameters:  chars (list) - array of characters holding the full name
     Returns:     list - characters of the initials
     """
-    result = []
-    new_word = True              # True when the next letter starts a word
-    for c in to_upper(chars):
-        if c == " ":
-            new_word = True
-        elif new_word:
+    result = []                     #define empty list result
+    new_word = True                 #True when the next letter starts a word
+    for c in to_upper(chars):       #for c in forced uppercase chars list
+        if c == " ":                #if c is a space
+            new_word = True         #there is a new word
+        elif new_word:              #add c to list of initials and add a period in between the initials
             result.append(c)
             result.append(".")
-            new_word = False
-    return result
+            new_word = False        #set new word to false
+    return result                   #return result
 
 
 # 15. Title check (Bonus)
@@ -341,22 +323,19 @@ def has_title(chars):
     Returns:     bool - True if a title is found
     """
     titles = ["dr", "dr.", "sir", "esq", "ph.d", "mr", "mr.", "mrs",
-              "mrs.", "ms", "ms."]
-    word = ""
-    lowered = to_lower(chars)
-    lowered.append(" ")          # extra space so the LAST word is checked too
-    for c in lowered:
-        if c == " ":
-            if word in titles:
-                return True
-            word = ""            # start building the next word
+              "mrs.", "ms", "ms."]          #possible title options
+    word = ""                               #word is an empty string
+    lowered = to_lower(chars)               #lowered is the chars list converted to lowecase
+    lowered.append(" ")                     #add a space to the end of the list  
+    for c in lowered:                       #for c in the lowered list
+        if c == " ":                        #if c is a space
+            if word in titles:              #check if the word is in titles
+                return True                 #if the word matches the list, return boolean true
+            word = ""                       #reset word            
         else:
-            word = word + c
-    return False
+            word = word + c                 #if c is not a space, 
+    return False                            #if not a title, return false
 
-
-
-# 17. My own: Caesar cipher (Bonus)
 
 
 def caesar(chars, shift):
@@ -368,20 +347,17 @@ def caesar(chars, shift):
                  shift (int) - number of places to move (negative decodes)
     Returns:     list - the encoded characters (a new array)
     """
-    result = []
-    for c in to_lower(chars):
+    result = []               #
+    for c in to_lower(chars): #for c in the forced lower chars
         if c >= "a" and c <= "z":
-            # 1. ord(c) - ord('a')   -> position in alphabet (0-25)
-            # 2. + shift             -> move forward
-            # 3. % 26                -> wrap around past 'z'
-            # 4. + ord('a')          -> convert back to a letter code
+            # 1. ord(c) - ord('a') position in alphabet (0-25)
+            # 2. + shift           moves letter forward forward
+            # 3. % 26              wraps around past 'z'
+            # 4. + ord('a')        converts back into a letter code
             result.append(chr((ord(c) - ord("a") + shift) % 26 + ord("a")))
         else:
-            result.append(c)
+            result.append(c) #if not a letter, add back to list
     return result
-
-
-# 13. Menu (Bonus)
 
 def show_menu():
     """
@@ -389,7 +365,7 @@ def show_menu():
     Parameters:  none
     Returns:     nothing
     """
-    print("\n--- MENU ---")
+    print("\n--- MENU ---")     #print the menu
     print("1  Reverse")
     print("2  Vowels")
     print("3  Consonants")
@@ -407,63 +383,61 @@ def show_menu():
     print("17 Caesar cipher")
     print("0  Quit")
 
-
 def main():
     """
-    Description: Asks for a name, then shows the menu and runs
+    Description: Asks for a name/word, then shows the menu and runs
                  the chosen function until the user enters 0.
     Parameters:  none
     Returns:     nothing
     """
-    name = to_chars(input("Enter your name or a word: "))
-    choice = ""
+    name = to_chars(input("Enter your name or a word: "))  #name is list form of the inputted string
+    choice = ""                                            #choice is empty string
     while choice != "0":
-        show_menu()
-        choice = input("Choice: ")
+        show_menu()                                        #displays menu
+        choice = input("Choice: ")                         #choice is the input for the question asked
         if choice == "1":
-            reverse_and_display(name)
+            print(reverse_and_display(name))               #print reversed name/word
         elif choice == "2":
             print("Total vowels:", count_vowels(name))
-            v = input("Which vowel do you want counted? ")
-            if len(v) == 1 and is_vowel(v):
-                print(v, "appears", count_one_vowel(name, v), "times")
+            v = input("Which vowel do you want counted? ") #choose vowel to be counted
+            if len(v) == 1 and is_vowel(v):                #confirm v is actually a vowel
+                print(v, "appears", count_one_vowel(name, v), "times")  #print how many times v vowel appears
             else:
-                print("That is not a vowel.")
-            print("Subtotals for a e i o u:", vowel_subtotals(name))
+                print("That is not a vowel.")                           #if input is not a vowel print error message
+            print("Subtotals for a e i o u:", vowel_subtotals(name))    #print subtotals for each vowel
         elif choice == "3":
-            print("Total consonants:", count_consonants(name))
-            counts = consonant_subtotals(name)
-            for i in range(26):
+            print("Total consonants:", count_consonants(name))          #total number of consonants
+            counts = consonant_subtotals(name)                          #counts is subtotals of every consonant
+            for i in range(26):                                         #for i in range of the alphabet
                 if counts[i] > 0:
-                    # chr(ord('a') + i) turns position i back into a letter
-                    print(chr(ord("a") + i) + ":", counts[i])
+                    print(chr(ord("a") + i) + ":", counts[i]) #chr(ord('a') + i) turns position i back into a letter
         elif choice == "4":
-            print(to_text(first_name(name)))
+            print(to_text(first_name(name))) #print results of first name function
         elif choice == "5":
-            print(to_text(last_name(name)))
+            print(to_text(last_name(name)))  #print results of last name function
         elif choice == "6":
-            print(to_text(middle_names(name)))
+            print(to_text(middle_names(name))) #print results of middle name function
         elif choice == "7":
-            print(last_has_hyphen(name))
+            print(last_has_hyphen(name)) #print results of hyphen checker function
         elif choice == "8":
-            print(to_text(to_lower(name)))
+            print(to_text(to_lower(name))) #print results of forced lowecase function
         elif choice == "9":
-            print(to_text(to_upper(name)))
+            print(to_text(to_upper(name))) #print results of forced uppercase function
         elif choice == "10":
-            scramble(name)       # changes the array itself
-            print(to_text(name))
+            scramble(name)       #scramble the array
+            print(to_text(name)) #print scrambled array
         elif choice == "11":
-            print(first_is_palindrome(name))
+            print(first_is_palindrome(name)) #print results of palindrome checker function
         elif choice == "12":
-            print(to_text(sorted_chars(name)))
+            print(to_text(sorted_chars(name))) #print results of sorted characters function
         elif choice == "14":
-            print(to_text(initials(name)))
+            print(to_text(initials(name))) #print results of initials function
         elif choice == "15":
-            print(has_title(name))
+            print(has_title(name)) #print results of title check function
         elif choice == "17":
-            shift = int(input("Shift by: "))
-            print(to_text(caesar(name, shift)))
-        elif choice != "0":
+            shift = int(input("Shift by: "))        #choose shift factor for caeser cypher
+            print(to_text(caesar(name, shift)))     #print cyphered code
+        elif choice != "0":             #if the choice is not one of the available options print error message
             print("Invalid choice")
     print("Goodbye!")
 

@@ -14,6 +14,10 @@
 # *      N/A as far as I am aware                                     *
 # *                                                                   *
 # *********************************************************************
+# *  Log:                                                             *
+# *      V1.1 updated line documentation                              *
+# *                                                                   *
+# *********************************************************************
 def play_game():
     """Run the full tic-tac-toe session, playing repeated games until the user quits.
 
@@ -26,18 +30,18 @@ def play_game():
     Returns:
         None
     """
-    scores = {"x": 0, "o": 0, "draws": 0}
-    while True:
-        board = [["1", "2", "3"],
+    scores = {"x": 0, "o": 0, "draws": 0}   #defines the scoreboard dictionary with keys and values
+    while True:                             #infinite loop
+        board = [["1", "2", "3"],           #define list of lists for boards
                  ["4", "5", "6"],
                  ["7", "8", "9"]]
-        display_board(board)
-        result = gameloop(board)
-        update_score(scores, result)
-        display_score(scores)
-        if not play_again():
-            break
-    print("Game Over")
+        display_board(board)                #run display_board to print board
+        result = gameloop(board)            #define results using gameloop
+        update_score(scores, result)        #run update_score
+        display_score(scores)               #run display_score to print scores
+        if not play_again():                #check if game is over
+            break                           #break infinite loop
+    print("Game Over")                      #game over
 
 
 def display_board(board):
@@ -51,9 +55,9 @@ def display_board(board):
         None
     """
     for row in range(3):
-        print(" " + " | ".join(board[row]))
+        print(" " + " | ".join(board[row])) #print board row
         if row < 2:
-            print("---+---+---")
+            print("---+---+---")            #print divider row
 
 
 def get_player_move(board, player):
@@ -71,16 +75,16 @@ def get_player_move(board, player):
         list[list[str]]: The board after the player's mark has been placed.
     """
     while True:
-        inputmove = input(f"Where would you like to play {player}? 1 to 9: ")
-        if inputmove not in list("123456789") or inputmove == "":
-            print("Please enter a number from 1 to 9.")
-            continue
-        for row in range(3):
+        inputmove = input(f"Where would you like to play {player}? 1 to 9: ")   #ask where player would like to play
+        if inputmove not in list("123456789") or inputmove == "":               #check if inputmove is a number or not
+            print("Please enter a number from 1 to 9.")                         #print error message
+            continue                                                            #repeat the question
+        for row in range(3):                                                    #check each row and column to place the player's move
             for column in range(3):
-                if board[row][column] == inputmove:
-                    board[row][column] = player
-                    return board
-        print("That square is already taken. Try again.")
+                if board[row][column] == inputmove:                             #if spot on board equals the inputted move
+                    board[row][column] = player                                 #set the spot equal to the current player's turn (x or o)
+                    return board                                                #return the updated board
+        print("That square is already taken. Try again.")                       #error message for repeated squares
 
 
 def is_draw(board):
@@ -93,11 +97,11 @@ def is_draw(board):
         bool: True if all nine squares contain an "x" or an "o", otherwise False.
     """
     counter = 0
-    for row in range(3):
+    for row in range(3):                                                       #check rows and columns for locations of x and o to determin draw
         for column in range(3):
-            if board[row][column] == "x" or board[row][column] == "o":
-                counter = counter + 1
-    return counter == 9
+            if board[row][column] == "x" or board[row][column] == "o":         #if the spot is x or o, one tile has been played
+                counter = counter + 1                                          #add one to the counter for each played tile
+    return counter == 9                                                        #return counter == 9 to signal a draw
 
 
 def check_winner(board):
@@ -112,7 +116,7 @@ def check_winner(board):
         str | None: The winning mark ("x" or "o") if there is a winner,
         otherwise None.
     """
-    for row in range(3):
+    for row in range(3):                                        #check all possible win conditions
         if board[row][0] == board[row][1] == board[row][2]:
             return board[row][0]
     # Columns
@@ -140,9 +144,9 @@ def update_score(scores, result):
         None
     """
     if result == "draw":
-        scores["draws"] = scores["draws"] + 1
+        scores["draws"] = scores["draws"] + 1 #update draws key in dictionary
     else:
-        scores[result] = scores[result] + 1
+        scores[result] = scores[result] + 1 #increase the winner(result)'s score by 1 in their respective dictionary key
 
 
 def display_score(scores):
@@ -155,10 +159,10 @@ def display_score(scores):
     Returns:
         None
     """
-    print("\n--- Scoreboard ---")
-    print(f"x wins: {scores['x']}")
-    print(f"o wins: {scores['o']}")
-    print(f"Draws:  {scores['draws']}")
+    print("\n--- Scoreboard ---")               #print scoreboard
+    print(f"x wins: {scores['x']}")             #use scores dictionary to pull value of "x"
+    print(f"o wins: {scores['o']}")             #use dictionary to pull number of O wins
+    print(f"Draws:  {scores['draws']}")         #use dictionary to pill number of draws
     print("------------------\n")
 
 
@@ -175,13 +179,13 @@ def play_again():
         bool: True if the players want to play again, False if they want to quit.
     """
     while True:
-        answer = input("Play again? (y/n): ").strip().lower()
-        if answer == "y" or answer == "yes":
-            print("")
-            return True
-        if answer == "n" or answer == "no":
-            return False
-        print("Please type y or n.")
+        answer = input("Play again? (y/n): ").strip().lower()   #check play again and remove whitespaces and force lower case
+        if answer == "y" or answer == "yes":                    #if loop to determine whether to continue game
+            print("")                                           #print empty row
+            return True                                         #return boolean
+        if answer == "n" or answer == "no":                     #if players do not want to play again
+            return False                                        #end game signal
+        print("Please type y or n.")                            #error message for inappropriate answer
 
 
 def gameloop(board):
@@ -199,18 +203,18 @@ def gameloop(board):
     """
     turns = 0
     while True:
-        if turns % 2 == 0:
-            player = "x"
-        else:
+        if turns % 2 == 0:                 #check if turns is a multiple of 2 
+            player = "x"                   #if yes then it is X's turn
+        else:                              #if it turns is an odd number then O's turn
             player = "o"
-        get_player_move(board, player)
-        display_board(board)
-        winner = check_winner(board)
-        if winner:
-            print(f"{winner} wins!")
-            return winner
-        if is_draw(board):
-            print("It's a draw!")
+        get_player_move(board, player)     #run get_player_move
+        display_board(board)               #run display_board
+        winner = check_winner(board)       #check if the winner is X or O or a draw
+        if winner:                         #if there is a winner
+            print(f"{winner} wins!")       #print the winner
+            return winner                  #return winner variable
+        if is_draw(board):                 #if draw
+            print("It's a draw!")          #print draw message
             return "draw"
-        turns = turns + 1
+        turns = turns + 1                  #add one to turns
 play_game()
